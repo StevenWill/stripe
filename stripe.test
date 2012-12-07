@@ -1,0 +1,74 @@
+<?php
+/**
+ * @file
+ * Test case for testing the Stripe billing form.
+ */
+class STRIPE_TestCase extends DrupalWebTestCase {
+  protected $web_user;
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Stripe',
+      'description' => 'Test the Stripe billing forms.',
+      'group' => 'STRIPE',
+    );
+  }
+
+  /**
+   * Enable module.
+   */
+  function setUp() {
+    // Install module.
+    parent::setUp('stripe');
+  }
+
+  /**
+   * Fill out form.
+   */
+  function TestForm() {
+
+    // Test required fields on billing form.
+    $this->drupalPost('checkout', array(), t('Next'));
+    $this->assertText(t('Email field is required.'));
+    $this->assertText(t('Password field is required.'));
+    $this->assertText(t('Confirm Password field is required.'));
+    $this->assertText(t('First Name field is required.'));
+    $this->assertText(t('Last Name field is required.'));
+    $this->assertText(t('Phone field is required.'));
+    $this->assertText(t('Address Line 1 field is required.'));
+    $this->assertText(t('City field is required.'));
+    $this->assertText(t('County field is required.'));
+    $this->assertText(t('State field is required.'));
+    $this->assertText(t('Zip field is required.'));
+    
+    // Add billing information.
+    $billing_input = array(
+      'billing[email]' => 'example@test.com',
+      'billing[password]' => '401',
+      'billing[conf-password]' => '401',
+      'billing[firstname]' => $this->randomName(),
+      'billing[lastname]' => $this->randomName(),
+      'billing[phone]' => '12341234',
+      'billing[address]' => $this->randomName(),
+      'billing[address2]' => $this->randomName(),
+      'billing[city]' => $this->randomName(),
+      'billing[county]' => $this->randomName(),
+      'billing[state]' => $this->randomName(),
+      'billing[zip]' => sprintf('%05d', rand(0, 99999)),
+    );
+    // Submit billing information
+    $this->drupalPost('checkout', $billing_input, t('Next'));
+    // Check that we are on the second page of the form.
+    $this->assertFieldByName('card', '');
+    // Add card inforamtion.
+    $card_input = array(
+      'card' => '4242424242424242',
+      'cvc' => '324',
+      'exp_month' => '10',
+      'exp_year' => '2014',
+    );
+    // Post card information, but we can not include stripe.js so maybe use Selenium.
+    $this->drupalPost(NULL, $card_input, 'Submit');
+  }
+
+}

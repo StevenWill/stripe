@@ -1,0 +1,6 @@
+name = Stripe Example
+description = Stripe Example written by Steve Williams showing how to process, validate and store credit card transaction.
+package = STRIPE
+core = 7.x
+
+files[] = stripe.test

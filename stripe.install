@@ -1,0 +1,23 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the stripe module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function stripe_install() {
+  // Set the variables to store Stripe keys.
+  variable_set('stripe_secret_key', '');
+  variable_set('stripe_publishable_key', '');
+}
+
+/**
+ * Implement hook_uninstall(). 
+ */
+function stripe_uninstall() {
+  // Delete Stripe Key variables.
+  variable_del('stripe_secret_key');
+  variable_del('stripe_publishable_key');
+}
