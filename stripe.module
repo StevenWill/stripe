@@ -6,8 +6,7 @@
  */
 
 /**
- * Implement hook_menu().
- *  
+ * Implements hook_menu().
  */
 function stripe_menu() {
   $items = array();
@@ -30,7 +29,8 @@ function stripe_menu() {
 /**
  * Configuration Form for Admin to set the secret and publishable keys.
  *
- * @return type 
+ * @return array
+ *   Array of form values to be saved.
  */
 function stripe_admin_settings() {
   $form = array();
@@ -51,7 +51,7 @@ function stripe_admin_settings() {
  * First page of a multi-page form.
  * This page provides billing fields.
  *
- * @param type $form
+ * @param array $form
  * @param array $form_state
  * @return array 
  */
@@ -190,8 +190,8 @@ function stripe_form($form, $form_state) {
 /**
  * Track what page the form is on and rebuild form.
  *
- * @param type $form
- * @param type $form_state 
+ * @param array $form
+ * @param array $form_state 
  */
 function stripe_form_tracker($form, &$form_state) {
   $form_state['page_values'][1] = $form_state['values'];
@@ -208,8 +208,8 @@ function stripe_form_tracker($form, &$form_state) {
 /**
  * Set page_num to 1 and rebuild form when back button is clicked.
  *
- * @param type $form
- * @param type $form_state 
+ * @param array $form
+ * @param array $form_state 
  */
 function stripe_form_back($form, &$form_state) {
   $form_state['values'] = $form_state['page_values'][1];
@@ -220,9 +220,9 @@ function stripe_form_back($form, &$form_state) {
 /**
  * Provide page two of form to collect payment information and process with Stripe.
  *
- * @param type $form
- * @param type $form_state
- * @return type 
+ * @param array $form
+ * @param array $form_state
+ * @return array 
  */
 function stripe_form_payment($form, $form_state) {
   // Include external Stripe.js and local stripe JQuery.
@@ -303,8 +303,8 @@ function stripe_form_payment($form, $form_state) {
 /**
  * Ajax validation on email and password.
  *
- * @param type $form
- * @param type $form_state
+ * @param array $form
+ * @param array $form_state
  * @return string 
  */
 function _stripe_form_email_ajax_validate($form, &$form_state) {
@@ -328,8 +328,8 @@ function stripe_check_customer($email) {
 /**
  * Validate billing section of form (page 1).
  *
- * @param type $form
- * @param type $form_state 
+ * @param array $form
+ * @param array $form_state 
  */
 function stripe_form_billing_validate($form, $form_state) {
   // Validate as a true email format.
@@ -345,8 +345,8 @@ function stripe_form_billing_validate($form, $form_state) {
 /**
  * Process Stripe Charge and save user data.
  *
- * @param type $form
- * @param type $form_state 
+ * @param array $form
+ * @param array $form_state 
  */
 function stripe_form_callback($form, $form_state) {
   // Require Stripe Library.
