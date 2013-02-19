@@ -11,17 +11,17 @@
 function stripe_menu() {
   $items = array();
   $items['checkout'] = array(
-    'title' => t('Checkout'),
+    'title' => 'Checkout',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('stripe_form'),
     'access callback' => TRUE,
   );
   $items['admin/config/services/stripe'] = array(
-    'title' => t('Stripe'),
+    'title' => 'Stripe',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('stripe_admin_settings'),
-    'access arguments' => array('administer modules'), 
-    'description' => t('Configure Stripe keys provided by Stripe when you register.'),
+    'access arguments' => array('administer modules'),
+    'description' => 'Configure Stripe keys provided by Stripe when you register.',
   );
   return $items;
 }
