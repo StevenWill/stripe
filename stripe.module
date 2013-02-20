@@ -53,7 +53,7 @@ function stripe_admin_settings() {
  *
  * @param array $form
  * @param array $form_state
- * @return array 
+ * @return array
  */
 function stripe_form($form, $form_state) {
 
@@ -64,19 +64,19 @@ function stripe_form($form, $form_state) {
 
   // Set page_num to 1 and build page 1.
   $form_state['page_num'] = 1;
-  
+
   $form = array();
-  
+
   // Define form as hierarchy so we can access both pages as trees.
   $form['#tree'] = TRUE;
-  
+
   $form['billing'] = array(
     '#type' => 'fieldset',
     '#title' => t('Billing & Account Details'),
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
   );
-  
+
   // Check for $form_state values returned on form rebuild and when submitting the back button.
   $email = isset($form_state['values']['billing']['email']) ? $form_state['values']['billing']['email'] : '';
   $form['billing']['email'] = array(
@@ -92,19 +92,19 @@ function stripe_form($form, $form_state) {
     ),
     '#suffix' => '<div id="email-error"> </div>',
   );
-  
+
   $form['billing']['password'] = array(
     '#type' => 'password',
     '#title' => t('Password'),
     '#required' => TRUE,
   );
-  
+
   $form['billing']['conf-password'] = array(
     '#type' => 'password',
     '#title' => t('Confirm Password'),
     '#required' => TRUE,
   );
-  
+
   $firstname = isset($form_state['values']['billing']['firstname']) ? $form_state['values']['billing']['firstname'] : '';
   $form['billing']['firstname'] = array(
     '#type' => 'textfield',
@@ -112,7 +112,7 @@ function stripe_form($form, $form_state) {
     '#required' => TRUE,
     '#default_value' => $firstname,
   );
-  
+
   $lastname = isset($form_state['values']['billing']['lastname']) ? $form_state['values']['billing']['lastname'] : '';
   $form['billing']['lastname'] = array(
     '#type' => 'textfield',
@@ -120,7 +120,7 @@ function stripe_form($form, $form_state) {
     '#required' => TRUE,
     '#default_value' => $lastname,
   );
-  
+
   $phone = isset($form_state['values']['billing']['phone']) ? $form_state['values']['billing']['phone'] : '';
   $form['billing']['phone'] = array(
     '#type' => 'textfield',
@@ -128,7 +128,7 @@ function stripe_form($form, $form_state) {
     '#required' => TRUE,
     '#default_value' => $phone,
   );
-  
+
   $address = isset($form_state['values']['billing']['address']) ? $form_state['values']['billing']['address'] : '';
   $form['billing']['address'] = array(
     '#type' => 'textfield',
@@ -136,14 +136,14 @@ function stripe_form($form, $form_state) {
     '#required' => TRUE,
     '#default_value' => $address,
   );
-  
+
   $address2 = isset($form_state['values']['billing']['address2']) ? $form_state['values']['billing']['address2'] : '';
   $form['billing']['address2'] = array(
     '#type' => 'textfield',
     '#title' => t('Address Line 2'),
     '#default_value' => $address2
   );
-  
+
   $city = isset($form_state['values']['billing']['city']) ? $form_state['values']['billing']['city'] : '';
   $form['billing']['city'] = array(
     '#type' => 'textfield',
@@ -151,7 +151,7 @@ function stripe_form($form, $form_state) {
     '#required' => TRUE,
     '#default_value' => $city,
   );
-  
+
   $county = isset($form_state['values']['billing']['county']) ? $form_state['values']['billing']['county'] : '';
   $form['billing']['county'] = array(
     '#type' => 'textfield',
@@ -159,7 +159,7 @@ function stripe_form($form, $form_state) {
     '#required' => TRUE,
     '#default_value' => $county,
   );
-  
+
   $state = isset($form_state['values']['billing']['state']) ? $form_state['values']['billing']['state'] : '';
   $form['billing']['state'] = array(
     '#type' => 'textfield',
@@ -167,7 +167,7 @@ function stripe_form($form, $form_state) {
     '#required' => TRUE,
     '#default_value' => $state,
   );
-  
+
   $zip = isset($form_state['values']['billing']['zip']) ? $form_state['values']['billing']['zip'] : '';
   $form['billing']['zip'] = array(
     '#type' => 'textfield',
@@ -177,7 +177,7 @@ function stripe_form($form, $form_state) {
     '#maxlength' => 10,
     '#default_value' => $zip
   );
-  
+
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => 'Next',
@@ -191,7 +191,7 @@ function stripe_form($form, $form_state) {
  * Track what page the form is on and rebuild form.
  *
  * @param array $form
- * @param array $form_state 
+ * @param array $form_state
  */
 function stripe_form_tracker($form, &$form_state) {
   $form_state['page_values'][1] = $form_state['values'];
@@ -209,7 +209,7 @@ function stripe_form_tracker($form, &$form_state) {
  * Set page_num to 1 and rebuild form when back button is clicked.
  *
  * @param array $form
- * @param array $form_state 
+ * @param array $form_state
  */
 function stripe_form_back($form, &$form_state) {
   $form_state['values'] = $form_state['page_values'][1];
@@ -222,13 +222,13 @@ function stripe_form_back($form, &$form_state) {
  *
  * @param array $form
  * @param array $form_state
- * @return array 
+ * @return array
  */
 function stripe_form_payment($form, $form_state) {
   // Include external Stripe.js and local stripe JQuery.
   drupal_add_js('https://js.stripe.com/v1/', 'external');
   drupal_add_js(drupal_get_path('module', 'stripe') . '/js/stripe.js');
-  
+
   //$form = array();
   $form['payment'] = array(
     '#type' => 'fieldset',
@@ -252,7 +252,7 @@ function stripe_form_payment($form, $form_state) {
     '#description' => t('Enter the CVC number printed on the back of your card.'),
     '#attributes' => array('class' => array('card-cvc')),
   );
-  
+
   $month_range = range('01', '12');
   $month_options = array_combine($month_range, $month_range);
   $form['payment']['exp_month'] = array(
@@ -261,7 +261,7 @@ function stripe_form_payment($form, $form_state) {
     '#options' => $month_options,
     '#attributes' => array('class' => array('card-expire-month')),
   );
-  
+
   $year_range = range(date('Y'), date('Y') + 5);
   $year_options = array_combine($year_range, $year_range);
   $form['payment']['exp_year'] = array(
@@ -271,32 +271,32 @@ function stripe_form_payment($form, $form_state) {
     '#attributes' => array('class' => array('card-expire-year')),
     '#suffix' => '<span class="payment-errors"> </span>',
   );
-  
+
   $form['striptoken'] = array(
     '#type' => 'hidden',
     '#attributes' => array('id' => array('stripetoken')),
   );
-  
+
   $form['stripe_publishable_key'] = array(
     '#type' => 'hidden',
     '#value' => variable_get('stripe_publishable_key', ''),
     '#attributes' => array('id' => array('stripe_publishable_key')),
   );
-  
+
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Submit'),
     '#submit' => array('stripe_form_callback'),
     '#attributes' => array('id' => array('submit-button')),
   );
-  
-    $form['back'] = array(
+
+  $form['back'] = array(
     '#type' => 'submit',
     '#value' => t('<< Back'),
     '#submit' => array('stripe_form_back'),
     '#limit_validation_errors' => array(),
   );
-  
+
   return $form;
 }
 
@@ -305,7 +305,7 @@ function stripe_form_payment($form, $form_state) {
  *
  * @param array $form
  * @param array $form_state
- * @return string 
+ * @return string
  */
 function _stripe_form_email_ajax_validate($form, &$form_state) {
   // Validate as a true email format.
@@ -329,14 +329,14 @@ function stripe_check_customer($email) {
  * Validate billing section of form (page 1).
  *
  * @param array $form
- * @param array $form_state 
+ * @param array $form_state
  */
 function stripe_form_billing_validate($form, $form_state) {
   // Validate as a true email format.
   if (filter_var($form_state['values']['billing']['email'], FILTER_VALIDATE_EMAIL) == FALSE) {
     form_set_error('billing][email', t('This email is not valid.'));
   }
-  
+
   if ($form_state['values']['billing']['password'] != $form_state['values']['billing']['conf-password']) {
     form_set_error('billing][conf-password', t('The passwords did not match.'));
   }
@@ -346,20 +346,20 @@ function stripe_form_billing_validate($form, $form_state) {
  * Process Stripe Charge and save user data.
  *
  * @param array $form
- * @param array $form_state 
+ * @param array $form_state
  */
 function stripe_form_callback($form, $form_state) {
   // Require Stripe Library.
-  // NOTE: Transition this to using the Library 2.0 API 
+  // NOTE: Transition this to using the Library 2.0 API
   require_once("lib/stripe-php/lib/Stripe.php");
-  
+
   // Get secret key from Drupal and set Stripe API Key.
   $stripe_secret_key = variable_get('stripe_secret_key');
   empty($stripe_secret_key) ? NULL : Stripe::setApiKey($stripe_secret_key);
-  
+
   // Assign billing data for easier referencing.
   $billing_values = $form_state['page_values']['1'];
- 
+
   $customer_id = stripe_check_customer($billing_values['billing']['email']);
 
   try {
@@ -384,7 +384,7 @@ function stripe_form_callback($form, $form_state) {
         "customer" => $customer_id)
       );
     }
-  } 
+  }
   catch(Stripe_CardError $e) {
     //Card is declined.
     $jbody = $e->getJsonBody();
@@ -398,7 +398,7 @@ function stripe_form_callback($form, $form_state) {
     );
     drupal_set_message($err['message']);
     return;
-  } 
+  }
   catch (Stripe_InvalidRequestError $e) {
     //Invalid request error.
     $jbody = $e->getJsonBody();
@@ -411,7 +411,7 @@ function stripe_form_callback($form, $form_state) {
     );
     drupal_set_message($err['message']);
     return;
-  } 
+  }
   catch (Stripe_AuthenticationError $e) {
     //Invalid Key request error.
     $jbody = $e->getJsonBody();
@@ -424,7 +424,7 @@ function stripe_form_callback($form, $form_state) {
     );
     drupal_set_message($err['message']);
     return;
-  } 
+  }
   catch (Stripe_Error $e) {
     //General Error.
     $jbody = $e->getJsonBody();
@@ -436,7 +436,7 @@ function stripe_form_callback($form, $form_state) {
     );
     drupal_set_message('A error occured, contact the site administrator.');
     return;
-  } 
+  }
   catch (Exception $e) {
     watchdog('error', 'Message: @message',
       array(
@@ -465,5 +465,3 @@ function stripe_form_callback($form, $form_state) {
   drupal_set_message('Your order has been processed.');
   drupal_goto();
 }
-
-
