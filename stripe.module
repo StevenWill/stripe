@@ -320,7 +320,7 @@ function _stripe_form_email_ajax_validate($form, &$form_state) {
 }
 
 function stripe_check_customer($email) {
-  $query = 'SELECT name FROM users where mail = :mail';
+  $query = 'SELECT name FROM {users} where mail = :mail';
   $result = db_query($query, array(':mail' => $email))->fetchField();
   return $result;
 }
