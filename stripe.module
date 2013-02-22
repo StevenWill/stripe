@@ -434,7 +434,7 @@ function stripe_form_callback($form, $form_state) {
         '@message' => $err['message'],
       )
     );
-    drupal_set_message('A error occured, contact the site administrator.');
+    drupal_set_message(t('A error occured, contact the site administrator.'));
     return;
   }
   catch (Exception $e) {
@@ -443,7 +443,7 @@ function stripe_form_callback($form, $form_state) {
         '@message' => $err['message'],
       )
     );
-    drupal_set_message('A error occured, contact the site administrator.');
+    drupal_set_message(t('A error occured, contact the site administrator.'));
     return;
   }
 
@@ -462,6 +462,6 @@ function stripe_form_callback($form, $form_state) {
     user_save(NULL, $create);
   }
   // Finished so go to home page.
-  drupal_set_message('Your order has been processed.');
+  drupal_set_message(t('Your order has been processed.'));
   drupal_goto();
 }
