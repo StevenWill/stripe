@@ -385,7 +385,7 @@ function stripe_form_callback($form, $form_state) {
       );
     }
   }
-  catch(Stripe_CardError $e) {
+  catch (Stripe_CardError $e) {
     //Card is declined.
     $jbody = $e->getJsonBody();
     $err  = $jbody['error'];
