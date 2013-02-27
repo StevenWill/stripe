@@ -52,7 +52,11 @@ function stripe_admin_settings() {
  * This page provides billing fields.
  *
  * @param array $form
+ *   Define form elements.
+ *
  * @param array $form_state
+ *   State of current forms including passed values.
+ *
  * @return array
  */
 function stripe_form($form, $form_state) {
