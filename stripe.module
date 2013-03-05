@@ -216,7 +216,10 @@ function stripe_form_tracker($form, &$form_state) {
  * Set page_num to 1 and rebuild form when back button is clicked.
  *
  * @param array $form
+ *   Form elements to build the form.
+ *
  * @param array $form_state
+ *   Form state elements to pass values.
  */
 function stripe_form_back($form, &$form_state) {
   $form_state['values'] = $form_state['page_values'][1];
