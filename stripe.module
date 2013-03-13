@@ -231,8 +231,13 @@ function stripe_form_back($form, &$form_state) {
  * Provide page two of form to collect payment information and process with Stripe.
  *
  * @param array $form
+ *   Form elements to build the form.
+ *
  * @param array $form_state
+ *   Form state elements to pass values.
+ *
  * @return array
+ *   return form and form_state arrays.
  */
 function stripe_form_payment($form, $form_state) {
   // Include external Stripe.js and local stripe JQuery.
