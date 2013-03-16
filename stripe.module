@@ -319,7 +319,11 @@ function stripe_form_payment($form, $form_state) {
  * Ajax validation on email and password.
  *
  * @param array $form
+ *   Elements to build the form.
+ *
  * @param array $form_state
+ *   Values passed during form submission.
+ *
  * @return string
  */
 function _stripe_form_email_ajax_validate($form, &$form_state) {
