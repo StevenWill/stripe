@@ -348,7 +348,10 @@ function stripe_check_customer($email) {
  * Validate billing section of form (page 1).
  *
  * @param array $form
+ *   Elements to build the form.
+ *
  * @param array $form_state
+ *   Values passes during form submission.
  */
 function stripe_form_billing_validate($form, $form_state) {
   // Validate as a true email format.
