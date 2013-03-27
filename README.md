@@ -4,7 +4,7 @@ stripe
 Drupal module for Stripe
 
 Installing
-1) install the module in drupal's /sites/all/modules
+1) Install the module in drupal's /sites/all/modules
 2) create a lib folder inside the stripe module (ex:/sites/all/modules/stripe/lib)
 3) clone the stripe php library from within the stripe/lib folder you just created.
   - git clone https://github.com/stripe/stripe-php.git
