@@ -448,7 +448,7 @@ function stripe_form_callback($form, $form_state) {
     return;
   }
   catch (Stripe_Error $e) {
-    //General Error.
+    // General Error.
     $jbody = $e->getJsonBody();
     $err  = $jbody['error'];
     watchdog('stripe_general_error', 'Message: @message',
