@@ -1,4 +1,4 @@
-stripe
+Stripe Example
 ======
 
 Drupal module for Stripe
